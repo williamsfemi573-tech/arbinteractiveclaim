@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARB Interactive | Official Prize & Sweepstakes Claim Portal</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#080511',
+                            card: '#120c24',
+                            border: '#271c47',
+                            cyan: '#00e5ff',
+                            cyanHover: '#00b8cc',
+                            gold: '#fbbf24',
+                            goldGlow: 'rgba(251, 191, 36, 0.25)',
+                            purple: '#6d28d9'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            background-color: #07040e;
+            color: #f8fafc;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(109, 40, 217, 0.18) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(0, 229, 255, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(18, 12, 36, 0.5) 0%, transparent 100%);
+            background-attachment: fixed;
+        }
+
+        .glass-card {
+            background: rgba(18, 12, 36, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .glass-input {
+            background: rgba(10, 6, 20, 0.7);
+            border: 1px solid rgba(109, 40, 217, 0.35);
+            transition: all 0.25s ease;
+        }
+        .glass-input:focus {
+            border-color: #00e5ff;
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
+            outline: none;
+        }
+
+        .btn-cyan {
+            background: linear-gradient(135deg, #00e5ff 0%, #00a8cc 100%);
+            color: #07040e;
+            font-weight: 700;
+            box-shadow: 0 4px 20px rgba(0, 229, 255, 0.35);
+            transition: all 0.25s ease;
+        }
+        .btn-cyan:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 229, 255, 0.55);
+        }
+
+        .btn-outline-cyan {
+            border: 1px solid #00e5ff;
+            color: #00e5ff;
+            transition: all 0.25s ease;
+        }
+        .btn-outline-cyan:hover {
+            background: rgba(0, 229, 255, 0.12);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+        }
+
+        .gold-badge {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(217, 119, 6, 0.25) 100%);
+            border: 1px solid rgba(251, 191, 36, 0.4);
+            color: #fbbf24;
+        }
+
+        .cyan-glow-text {
+            text-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #080511;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #271c47;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00e5ff;
+        }
+
+        .pulse-subtle {
+            animation: pulseGlow 3s infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 15px rgba(0, 229, 255, 0.2); }
+            100% { box-shadow: 0 0 35px rgba(0, 229, 255, 0.5); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between text-slate-100 antialiased selection:bg-cyan-500 selection:text-black">
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 backdrop-blur-md bg-[#07040e]/80 border-b border-purple-900/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 via-purple-600 to-amber-400 p-[2px] shadow-lg shadow-purple-900/40 group-hover:rotate-6 transition-transform">
+                    <div class="w-full h-full bg-[#080511] rounded-[10px] flex items-center justify-center">
+                        <i class="fa-solid fa-shield-halved text-brand-cyan text-lg"></i>
+                    </div>
+                </div>
+                <div>
+                    <span class="font-heading font-extrabold text-xl tracking-wider text-white flex items-center gap-1.5">
+                        ARB <span class="text-brand-cyan">INTERACTIVE</span>
+                    </span>
+                    <span class="text-[10px] tracking-widest uppercase text-slate-400 font-semibold block -mt-1">Official Prize Registry</span>
+                </div>
+            </a>
+
+            <!-- Security Trust Badge (Desktop) -->
+            <div class="hidden md:flex items-center gap-4 bg-purple-950/40 border border-purple-800/40 px-4 py-1.5 rounded-full text-xs">
+                <span class="flex items-center gap-1.5 text-emerald-400 font-medium">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    256-Bit SSL Encrypted
+                </span>
+                <span class="text-slate-600">|</span>
+                <span class="text-slate-300 font-medium"><i class="fa-solid fa-scale-balanced text-amber-400 mr-1.5"></i>AAA Arbitration Protected</span>
+            </div>
+
+            <!-- Quick Action Nav Buttons -->
+            <div class="flex items-center gap-3">
+                <a href="#showcase" class="hidden sm:inline-flex text-xs font-semibold text-slate-300 hover:text-brand-cyan px-3 py-2 transition-colors">
+                    Prize Showcase
+                </a>
+                <a href="#compliance-info" class="hidden sm:inline-flex text-xs font-semibold text-slate-300 hover:text-brand-cyan px-3 py-2 transition-colors">
+                    Rules & Privacy
+                </a>
+                <a href="#claim-wizard-section" class="btn-cyan px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-file-signature"></i>
+                    <span>Start Claim</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow">
+        
+        <!-- Hero Section -->
+        <section class="relative pt-12 pb-20 md:pt-20 md:pb-32 overflow-hidden">
+            <!-- Background Decorative Lighting -->
+            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-purple-600/15 blur-[120px] rounded-full pointer-events-none"></div>
+            <div class="absolute top-1/3 right-10 w-[300px] h-[300px] bg-cyan-500/10 blur-[100px] rounded-full pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                
+                <!-- Status Tag -->
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full gold-badge text-xs font-bold tracking-wide uppercase mb-6 shadow-lg shadow-amber-950/20">
+                    <i class="fa-solid fa-trophy"></i>
+                    <span>Official Sweepstakes & Lottery Disbursement Portal</span>
+                </div>
+
+                <!-- Main Heading -->
+                <h1 class="font-heading font-extrabold text-3xl sm:text-5xl md:text-6xl text-white tracking-tight max-w-4xl mx-auto leading-tight sm:leading-none">
+                    Official Winner Verification & <br class="hidden sm:inline">
+                    <span class="bg-gradient-to-r from-brand-cyan via-purple-300 to-amber-300 bg-clip-text text-transparent cyan-glow-text">
+                        Prize Disbursement Portal
+                    </span>
+                </h1>
+
+                <!-- Subtitle -->
+                <p class="mt-6 text-slate-300 text-base sm:text-lg md:text-xl max-w-3xl mx-auto font-normal leading-relaxed">
+                    Welcome to the verified <strong class="text-white">ARB Interactive</strong> claim management system. Recipients of official award notification letters or emails can securely submit credentials, verify Claim IDs, and initialize direct payout routing.
+                </p>
+
+                <!-- Quick Hero CTA Group -->
+                <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#claim-wizard-section" class="btn-cyan w-full sm:w-auto px-8 py-4 rounded-xl text-sm sm:text-base font-bold flex items-center justify-center gap-3">
+                        <i class="fa-solid fa-[#07040e] fa-shield-check text-lg"></i>
+                        <span>File Official Winner Claim</span>
+                    </a>
+                    <a href="#showcase" class="btn-outline-cyan w-full sm:w-auto px-7 py-4 rounded-xl text-sm sm:text-base font-semibold flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-gem"></i>
+                        <span>Explore Award Packages</span>
+                    </a>
+                </div>
+
+                <!-- Trust Metrics Bar -->
+                <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                    <div class="glass-card p-4 rounded-2xl border border-white/5 text-center">
+                        <div class="font-heading text-2xl sm:text-3xl font-extrabold text-brand-cyan">$50M+</div>
+                        <div class="text-xs text-slate-400 mt-1 uppercase font-semibold tracking-wider">Total Claims Disbursed</div>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl border border-white/5 text-center">
+                        <div class="font-heading text-2xl sm:text-3xl font-extrabold text-amber-400">100%</div>
+                        <div class="text-xs text-slate-400 mt-1 uppercase font-semibold tracking-wider">AAA Arbitration Guaranteed</div>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl border border-white/5 text-center">
+                        <div class="font-heading text-2xl sm:text-3xl font-extrabold text-purple-400">256-Bit</div>
+                        <div class="text-xs text-slate-400 mt-1 uppercase font-semibold tracking-wider">Bank-Grade Encryption</div>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl border border-white/5 text-center">
+                        <div class="font-heading text-2xl sm:text-3xl font-extrabold text-emerald-400">24/7</div>
+                        <div class="text-xs text-slate-400 mt-1 uppercase font-semibold tracking-wider">Assigned Rep Support</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Grand Prize Showcase Gallery -->
+        <section id="showcase" class="py-16 bg-[#0a0618]/90 border-y border-purple-900/20 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <span class="text-brand-cyan text-xs font-bold uppercase tracking-widest block mb-2">Verified Sweepstakes Assets</span>
+                    <h2 class="font-heading font-extrabold text-2xl sm:text-4xl text-white">Grand Prize & Cash Portfolio</h2>
+                    <p class="text-slate-400 text-sm sm:text-base mt-2">All awards are held in escrow pending 4-step identity and Claim ID verification.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <!-- Showcase Card 1: Luxury Vehicle & Cash Package -->
+                    <div class="glass-card rounded-2xl overflow-hidden group hover:border-brand-cyan/50 transition-all duration-300 flex flex-col">
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=1000&auto=format&fit=crop" 
+                                 alt="Luxury Modern Vehicle Award" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                 onerror="this.src='https://placehold.co/800x600/120c24/00e5ff?text=Luxury+Vehicle+Award'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#120c24] via-transparent to-transparent"></div>
+                            <span class="absolute top-4 left-4 bg-purple-900/80 backdrop-blur-md text-amber-300 text-xs font-bold px-3 py-1 rounded-full border border-amber-400/30">
+                                <i class="fa-solid fa-crown mr-1"></i> Tier 1 Grand Package
+                            </span>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col justify-between">
+                            <div>
+                                <h3 class="font-heading font-bold text-xl text-white group-hover:text-brand-cyan transition-colors">
+                                    Luxury Exotic Vehicle + Cash Stipend
+                                </h3>
+                                <p class="text-slate-400 text-xs sm:text-sm mt-2 leading-relaxed">
+                                    Includes complimentary title transfer, state registration coverage, fully insured transport, and tax assistance cash disbursement.
+                                </p>
+                            </div>
+                            <div class="mt-6 pt-4 border-t border-white/5 flex items-center justify-between">
+                                <span class="text-xs text-slate-400">Escrow Status:</span>
+                                <span class="text-emerald-400 font-bold text-xs flex items-center gap-1">
+                                    <i class="fa-solid fa-[#07040e] fa-circle-check"></i> Reserved & Audited
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Showcase Card 2: Executive Cash Disbursement ($2M+) -->
+                    <div class="glass-card rounded-2xl overflow-hidden group hover:border-amber-400/50 transition-all duration-300 flex flex-col">
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=1000&auto=format&fit=crop" 
+                                 alt="Cash Disbursement Award" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                 onerror="this.src='https://placehold.co/800x600/120c24/fbbf24?text=Cash+Disbursement+Award'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#120c24] via-transparent to-transparent"></div>
+                            <span class="absolute top-4 left-4 gold-badge text-xs font-bold px-3 py-1 rounded-full">
+                                <i class="fa-solid fa-money-bill-wave mr-1"></i> High-Value Cash Award
+                            </span>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col justify-between">
+                            <div>
+                                <h3 class="font-heading font-bold text-xl text-white group-hover:text-amber-400 transition-colors">
+                                    Executive Cash Disbursement ($2M+)
+                                </h3>
+                                <p class="text-slate-400 text-xs sm:text-sm mt-2 leading-relaxed">
+                                    Direct wire transfer or certified bank draft options. Form W-9 tax filing and IRS compliance management included.
+                                </p>
+                            </div>
+                            <div class="mt-6 pt-4 border-t border-white/5 flex items-center justify-between">
+                                <span class="text-xs text-slate-400">Typical Value:</span>
+                                <span class="text-amber-400 font-extrabold text-sm">$2,090,029.00 USD</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Showcase Card 3: VIP Promotional Estate & Vehicle Package -->
+                    <div class="glass-card rounded-2xl overflow-hidden group hover:border-brand-cyan/50 transition-all duration-300 flex flex-col">
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1563720223185-11003d516935?q=80&w=1000&auto=format&fit=crop" 
+                                 alt="Luxury SUV & Cash" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                 onerror="this.src='https://placehold.co/800x600/120c24/00e5ff?text=Luxury+SUV+Package'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#120c24] via-transparent to-transparent"></div>
+                            <span class="absolute top-4 left-4 bg-cyan-950/80 text-brand-cyan text-xs font-bold px-3 py-1 rounded-full border border-cyan-400/30">
+                                <i class="fa-solid fa-car-side mr-1"></i> Modern SUV & Cash Hybrid
+                            </span>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col justify-between">
+                            <div>
+                                <h3 class="font-heading font-bold text-xl text-white group-hover:text-brand-cyan transition-colors">
+                                    Luxury SUV & Lifestyle Package
+                                </h3>
+                                <p class="text-slate-400 text-xs sm:text-sm mt-2 leading-relaxed">
+                                    Combining custom high-performance electric/gas vehicles with liquid cash award options and white-glove home delivery.
+                                </p>
+                            </div>
+                            <div class="mt-6 pt-4 border-t border-white/5 flex items-center justify-between">
+                                <span class="text-xs text-slate-400">Delivery Method:</span>
+                                <span class="text-brand-cyan font-bold text-xs">Direct White-Glove Transport</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works / Security Process Strip -->
+        <section class="py-12 border-b border-purple-900/20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="flex items-start gap-4 p-4 rounded-xl bg-purple-950/20 border border-purple-900/30">
+                        <div class="w-10 h-10 rounded-lg bg-brand-cyan/10 border border-brand-cyan/30 flex items-center justify-center text-brand-cyan font-bold shrink-0">1</div>
+                        <div>
+                            <h4 class="text-sm font-bold text-white">Enter Official Claim ID</h4>
+                            <p class="text-xs text-slate-400 mt-1">Locate your unique reference code (e.g., ARB-248489) from your notification letter.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-4 rounded-xl bg-purple-950/20 border border-purple-900/30">
+                        <div class="w-10 h-10 rounded-lg bg-amber-400/10 border border-amber-400/30 flex items-center justify-center text-amber-400 font-bold shrink-0">2</div>
+                        <div>
+                            <h4 class="text-sm font-bold text-white">Verify Legal Credentials</h4>
+                            <p class="text-xs text-slate-400 mt-1">Submit matching driver's license/state ID numbers and contact data for validation.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-4 rounded-xl bg-purple-950/20 border border-purple-900/30">
+                        <div class="w-10 h-10 rounded-lg bg-purple-400/10 border border-purple-400/30 flex items-center justify-center text-purple-400 font-bold shrink-0">3</div>
+                        <div>
+                            <h4 class="text-sm font-bold text-white">Sign Terms & Disburse</h4>
+                            <p class="text-xs text-slate-400 mt-1">Accept confidentiality & arbitration terms to assign your dedicated representative.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive 4-Step Claim Submission Wizard -->
+        <section id="claim-wizard-section" class="py-16 md:py-24">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Section Header -->
+                <div class="text-center mb-10">
+                    <span class="text-brand-cyan font-semibold text-xs uppercase tracking-widest">Secure Claim Processing</span>
+                    <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-white mt-1">
+                        ARB Official Winner Claim Wizard
+                    </h2>
+                    <p class="text-slate-400 text-sm mt-2">Please complete all required steps to finalize your disbursement registry file.</p>
+                </div>
+
+                <!-- Wizard Card Container -->
+                <div class="glass-card rounded-3xl p-6 sm:p-10 border border-purple-600/30 relative shadow-2xl pulse-subtle">
+                    
+                    <!-- Quick Test Data Auto-Fill Button -->
+                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-purple-900/40">
+                        <div class="flex items-center gap-2 text-xs font-semibold text-amber-400">
+                            <i class="fa-solid fa-shield-virus"></i>
+                            <span>Official Confidential Portal (arb-interactive.com)</span>
+                        </div>
+                        <button type="button" onclick="autoFillSampleData()" class="text-xs font-bold text-brand-cyan hover:underline flex items-center gap-1.5 bg-cyan-950/40 px-3 py-1.5 rounded-lg border border-cyan-800/50">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            <span>Autofill Sample Claim</span>
+                        </button>
+                    </div>
+
+                    <!-- Stepper Bar Header -->
+                    <div class="mb-10">
+                        <div class="flex items-center justify-between text-xs sm:text-sm font-bold mb-3">
+                            <span id="step-title-text" class="text-brand-cyan uppercase tracking-wider">Step 1 of 4: Personal & Contact Information</span>
+                            <span id="step-percent-text" class="text-slate-400">25% Completed</span>
+                        </div>
+                        
+                        <!-- Progress Track -->
+                        <div class="w-full h-2.5 bg-slate-900 rounded-full overflow-hidden p-0.5 border border-purple-900/40">
+                            <div id="progress-bar-fill" class="h-full bg-gradient-to-r from-purple-500 via-brand-cyan to-amber-400 rounded-full transition-all duration-500 w-1/4"></div>
+                        </div>
+
+                        <!-- Step Dots -->
+                        <div class="grid grid-cols-4 gap-2 mt-4 text-center">
+                            <button onclick="goToStep(1)" id="dot-1" class="step-dot py-1.5 rounded-lg text-xs font-bold bg-brand-cyan text-black transition-all">1. Personal</button>
+                            <button onclick="goToStep(2)" id="dot-2" class="step-dot py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-400 transition-all">2. Claim ID</button>
+                            <button onclick="goToStep(3)" id="dot-3" class="step-dot py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-400 transition-all">3. Award</button>
+                            <button onclick="goToStep(4)" id="dot-4" class="step-dot py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-400 transition-all">4. Terms</button>
+                        </div>
+                    </div>
+
+                    <!-- FORM WIZARD BODY -->
+                    <form id="claim-form" onsubmit="handleClaimSubmission(event)">
+                        
+                        <!-- STEP 1: Personal & Contact Information -->
+                        <div id="step-1-content" class="step-pane space-y-5">
+                            <div class="bg-purple-950/30 p-4 rounded-xl border border-purple-800/30 mb-6 text-xs text-slate-300">
+                                <i class="fa-solid fa-circle-info text-brand-cyan mr-1.5"></i>
+                                Enter your legal identity details as they appear on your government-issued ID to ensure accurate verification.
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label class="block text-xs font-bold tracking-wider text-slate-200 uppercase mb-2">Full Name *</label>
+                                    <input type="text" id="fullName" required placeholder="e.g. Derrick stepn" class="w-full glass-input rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold tracking-wider text-slate-200 uppercase mb-2">Driver's License / State ID Number *</label>
+                                    <input type="text" id="driverLicense" required placeholder="e.g. 59969200" class="w-full glass-input rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label class="block text-xs font-bold tracking-wider text-slate-200 uppercase mb-2">Primary Phone Number *</label>
+                                    <input type="tel" id="phoneNumber" required placeholder="e.g. (161) 616-9469" class="w-full glass-input rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold tracking-wider text-slate-200 uppercase mb-2">Email Address *</label>
+                                    <input type="email" id="emailAddress" required placeholder="e.g. gohsjsjnenn@gmail.com" class="w-full glass-input rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold tracking-wider text-slate-200 uppercase mb-2">Street Address *</label>
+                                <input type="text" id="streetAddress" required placeholder="e.g. 4 bueikeklsms s trett" class="w-full glass-input rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500">
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                                <div>
+                                    <label class="block text-xs font-bold tracking-wider text-slate-200 uppercase mb-2">City *</label>
+                                    <input type="text" id="city" required placeholder="e.g. New York" class="w-full glass-input rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold tracking-wider text-slate-200 uppercase mb-2">State / Province *</label>
+                                    <input type="text" id="state" required placeholder="e.g. Logokkk" class="w-full glass-input rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold tracking-wider text-slate-200 uppercase mb-2">ZIP / Postal Code *</label>
+                                    <input type="text" id="zipCode" required placeholder="10001" class="w-full glass-input rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- STEP 2: Claim ID Verification -->
+                        <div id="step-2-content" class="step-pane hidden space-y-6">
+                            
+                            <div class="text-center max-w-lg mx-auto py-2">
+                                <div class="w-16 h-16 rounded-2xl bg-brand-cyan/10 border border-brand-cyan/40 text-brand-cyan flex items-center justify-center mx-auto text-2xl mb-4">
+                                    <i class="fa-solid fa-key"></i>
+                                </div>
+                                <h3 class="font-heading font-bold text-xl text-white">Enter Official Winner Credentials</h3>
+                                <p class="text-xs text-slate-400 mt-1">Please enter the Claim ID listed near the top of your official notification letter or email.</p>
+                            </div>
+
+                            <div class="glass-card p-6 rounded-2xl border border-purple-800/40">
+                                <label class="block text-xs font-bold tracking-wider text-brand-cyan uppercase mb-2">
+                                    PLEASE VERIFY YOUR CLAIM ID *
+                                </label>
+                                
+                                <div class="bg-purple-950/50 p-4 rounded-xl border border-purple-800/30 text-xs text-slate-300 mb-4 leading-relaxed">
+                                    On your notification letter or email, look near the top for a line labeled <strong>Claim ID</strong> or <strong>Claim Number</strong> (for example, <code class="text-amber-300 font-mono">ARB-123456</code> or <code class="text-amber-300 font-mono">Arb248489</code>). Enter it exactly as shown.
+                                </div>
+
+                                <div class="relative">
+                                    <input type="text" id="claimId" required oninput="validateClaimIdFormat()" placeholder="e.g. Arb248489" class="w-full glass-input rounded-xl px-4 py-3.5 text-base font-mono tracking-wider text-white uppercase placeholder-slate-500">
+                                    <div id="claim-id-status" class="absolute right-3 top-3.5 text-xs font-bold flex items-center gap-1 text-slate-500">
+                                        <i class="fa-solid fa-circle-notch animate-spin hidden" id="claim-spinner"></i>
+                                        <span id="claim-status-text">Format Check Required</span>
+                                    </div>
+                                </div>
+
+                                <div id="claim-id-feedback" class="mt-3 text-xs text-emerald-400 font-medium hidden flex items-center gap-1.5">
+                                    <i class="fa-solid fa-circle-check"></i> Valid ARB Claim ID format recognized in registry.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- STEP 3: Award Details -->
+                        <div id="step-3-content" class="step-pane hidden space-y-6">
+                            
+                            <div class="bg-purple-950/40 p-5 rounded-2xl border border-purple-800/40 text-xs text-slate-300 leading-relaxed">
+                                <i class="fa-solid fa-file-invoice-dollar text-amber-400 text-base mr-2"></i>
+                                Copy the prize details from your winner notification letter or email. Enter them in the fields below to match what you see on the letter.
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold tracking-wider text-slate-200 uppercase mb-2">PRIZE AMOUNT *</label>
+                                <div class="relative">
+                                    <span class="absolute left-4 top-3 text-slate-400 font-bold">$</span>
+                                    <input type="text" id="prizeAmount" required placeholder="2090029" class="w-full glass-input rounded-xl pl-8 pr-4 py-3.5 text-base font-bold text-amber-300 placeholder-slate-500">
+                                </div>
+                                <span class="text-[11px] text-slate-400 mt-1 block">Specify the full currency value without special symbols (e.g., 2090029).</span>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold tracking-wider text-slate-200 uppercase mb-2">PRIZE CATEGORY *</label>
+                                <select id="prizeCategory" class="w-full glass-input rounded-xl px-4 py-3.5 text-sm text-white">
+                                    <option value="Cash Disbursement ($2,000,000+ Tier)">Executive Cash Payout Tier</option>
+                                    <option value="Luxury Exotic Vehicle + Cash Package">Luxury Exotic Vehicle + Cash Package</option>
+                                    <option value="Grand Promotional Sweepstakes Award">Grand Promotional Sweepstakes Award</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold tracking-wider text-slate-200 uppercase mb-2">ADDITIONAL DETAILS (OPTIONAL)</label>
+                                <div class="bg-purple-950/30 p-3 rounded-t-xl border border-purple-800/30 border-b-0 text-xs text-slate-400">
+                                    Anything else from your letter that helps us match your claim (e.g., secondary authorization codes, dispatch batch numbers).
+                                </div>
+                                <textarea id="additionalDetails" rows="4" placeholder="Enter optional notes from your official winner notification letter..." class="w-full glass-input rounded-b-xl p-4 text-sm text-white placeholder-slate-500"></textarea>
+                            </div>
+
+                        </div>
+
+                        <!-- STEP 4: Representative, Live Review & Compliance Terms -->
+                        <div id="step-4-content" class="step-pane hidden space-y-6">
+                            
+                            <!-- Representative Selection Box -->
+                            <div class="glass-card p-6 rounded-2xl border border-purple-800/40 space-y-4">
+                                <label class="block text-xs font-bold tracking-wider text-brand-cyan uppercase">
+                                    DO YOU HAVE AN ASSIGNED CLAIM REPRESENTATIVE? *
+                                </label>
+                                <div class="flex gap-6">
+                                    <label class="flex items-center gap-2 cursor-pointer text-sm font-bold text-white">
+                                        <input type="radio" name="hasRep" value="yes" checked onchange="toggleRepFields(true)" class="accent-brand-cyan w-4 h-4">
+                                        Yes
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer text-sm font-bold text-white">
+                                        <input type="radio" name="hasRep" value="no" onchange="toggleRepFields(false)" class="accent-brand-cyan w-4 h-4">
+                                        No
+                                    </label>
+                                </div>
+
+                                <!-- Representative Name Inputs (Toggled) -->
+                                <div id="rep-name-container" class="pt-3 border-t border-purple-900/40 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">REPRESENTATIVE FIRST NAME</label>
+                                        <input type="text" id="repFirstName" placeholder="e.g. Chuxs" class="w-full glass-input rounded-xl px-4 py-2.5 text-sm text-white">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">REPRESENTATIVE LAST NAME</label>
+                                        <input type="text" id="repLastName" placeholder="e.g. Loxkswl" class="w-full glass-input rounded-xl px-4 py-2.5 text-sm text-white">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Live Claim Summary Review Box -->
+                            <div class="glass-card p-5 rounded-2xl border border-cyan-500/30 bg-purple-950/40">
+                                <div class="flex items-center justify-between mb-3 pb-2 border-b border-purple-800/40">
+                                    <span class="text-xs font-bold text-brand-cyan uppercase tracking-wider">
+                                        <i class="fa-solid fa-[#07040e] fa-magnifying-glass-dollar mr-1"></i> Live Claim Summary Audit
+                                    </span>
+                                    <span class="text-[10px] bg-cyan-950 border border-cyan-500/40 text-cyan-300 px-2 py-0.5 rounded">Ready to Bind</span>
+                                </div>
+                                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
+                                    <div>
+                                        <span class="text-slate-400 block text-[10px]">Claimant Name:</span>
+                                        <span id="summary-name" class="font-bold text-white">--</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-slate-400 block text-[10px]">Claim ID:</span>
+                                        <span id="summary-id" class="font-mono font-bold text-brand-cyan">--</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-slate-400 block text-[10px]">Award Value:</span>
+                                        <span id="summary-amount" class="font-bold text-amber-400">--</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-slate-400 block text-[10px]">Assigned Rep:</span>
+                                        <span id="summary-rep" class="font-bold text-purple-300">--</span>
+                                    </div>
+                                    <div class="col-span-2">
+                                        <span class="text-slate-400 block text-[10px]">Contact Email & Phone:</span>
+                                        <span id="summary-contact" class="font-bold text-slate-200">--</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Master "Accept All Agreements" Quick Button -->
+                            <div class="glass-card p-5 rounded-2xl border-2 border-dashed border-cyan-400/50 bg-cyan-950/20 text-center space-y-2">
+                                <button type="button" onclick="acceptAllAgreements()" class="btn-cyan px-6 py-3 rounded-xl text-sm font-bold w-full sm:w-auto inline-flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-double-check"></i>
+                                    <span>Accept All Agreements</span>
+                                </button>
+                                <p class="text-xs text-slate-300">Review each term below, or click this button to check all compliance boxes at once.</p>
+                            </div>
+
+                            <!-- Individual Checkbox List with Legal Copy -->
+                            <div class="space-y-4">
+                                <h4 class="text-xs font-bold text-white uppercase tracking-wider">Required Compliance Agreements:</h4>
+
+                                <!-- Agreement 1 -->
+                                <label class="glass-card p-4 rounded-xl border border-purple-800/40 flex items-start gap-3 cursor-pointer hover:border-brand-cyan/40 transition-colors">
+                                    <input type="checkbox" required class="term-checkbox accent-brand-cyan w-5 h-5 mt-0.5 shrink-0">
+                                    <div class="text-xs leading-relaxed">
+                                        <span class="font-bold text-white block mb-1">1. Eligibility & Accurate Information</span>
+                                        <p class="text-slate-300">I certify that I am the intended recipient named in my official winner notification, that I meet all eligibility requirements under the applicable sweepstakes or promotion rules, and that every detail on this claim form is true, complete, and correct. I understand that false, misleading, or incomplete information may result in denial or cancellation of my claim.</p>
+                                    </div>
+                                </label>
+
+                                <!-- Agreement 2 -->
+                                <label class="glass-card p-4 rounded-xl border border-purple-800/40 flex items-start gap-3 cursor-pointer hover:border-brand-cyan/40 transition-colors">
+                                    <input type="checkbox" required class="term-checkbox accent-brand-cyan w-5 h-5 mt-0.5 shrink-0">
+                                    <div class="text-xs leading-relaxed">
+                                        <span class="font-bold text-white block mb-1">2. Valid Claim Credentials</span>
+                                        <p class="text-slate-300">I confirm that I received an official Claim Number or Winner Notification from ARB Interactive or an authorized partner, and that I am submitting this form only for the award described in that notification. I understand that claims without valid credentials cannot be processed.</p>
+                                    </div>
+                                </label>
+
+                                <!-- Agreement 3: Strict Confidentiality -->
+                                <label class="glass-card p-4 rounded-xl border border-amber-400/40 bg-amber-950/10 flex items-start gap-3 cursor-pointer hover:border-amber-400 transition-colors">
+                                    <input type="checkbox" required class="term-checkbox accent-amber-400 w-5 h-5 mt-0.5 shrink-0">
+                                    <div class="text-xs leading-relaxed">
+                                        <span class="font-bold text-amber-300 block mb-1">3. Confidentiality Until Delivery Is Complete (Mandatory)</span>
+                                        <p class="text-slate-300">I agree not to disclose the amount, status, or details of my award to any third party—including on social media, to the press, or to family or friends—until ARB Interactive confirms that the prize delivery process has been completed. I understand that unauthorized disclosure may result in cancellation of my award.</p>
+                                    </div>
+                                </label>
+
+                                <!-- Agreement 4 -->
+                                <label class="glass-card p-4 rounded-xl border border-purple-800/40 flex items-start gap-3 cursor-pointer hover:border-brand-cyan/40 transition-colors">
+                                    <input type="checkbox" required class="term-checkbox accent-brand-cyan w-5 h-5 mt-0.5 shrink-0">
+                                    <div class="text-xs leading-relaxed">
+                                        <span class="font-bold text-white block mb-1">4. Cooperation with ARB & Your Representative</span>
+                                        <p class="text-slate-300">I agree to respond promptly to ARB Interactive and to any assigned claims representative, and to follow reasonable instructions related to identity verification, documentation, scheduling, and prize delivery. I understand that failure to cooperate may delay or prevent payment of my award.</p>
+                                    </div>
+                                </label>
+
+                                <!-- Agreement 5 -->
+                                <label class="glass-card p-4 rounded-xl border border-purple-800/40 flex items-start gap-3 cursor-pointer hover:border-brand-cyan/40 transition-colors">
+                                    <input type="checkbox" required class="term-checkbox accent-brand-cyan w-5 h-5 mt-0.5 shrink-0">
+                                    <div class="text-xs leading-relaxed">
+                                        <span class="font-bold text-white block mb-1">5. Identity Verification & Tax Reporting (Form W-9 / IRS Compliance)</span>
+                                        <p class="text-slate-300">I agree to provide government-issued identification and any other documents reasonably required to verify my identity and eligibility. I understand that prizes may be subject to federal, state, or local tax reporting and withholding, and I agree to furnish any forms or information (including IRS Form W-9 or equivalent) requested for compliance purposes.</p>
+                                    </div>
+                                </label>
+
+                                <!-- Agreement 6 -->
+                                <label class="glass-card p-4 rounded-xl border border-purple-800/40 flex items-start gap-3 cursor-pointer hover:border-brand-cyan/40 transition-colors">
+                                    <input type="checkbox" required class="term-checkbox accent-brand-cyan w-5 h-5 mt-0.5 shrink-0">
+                                    <div class="text-xs leading-relaxed">
+                                        <span class="font-bold text-white block mb-1">6. Contact & Use of Claim Information</span>
+                                        <p class="text-slate-300">I authorize ARB Interactive to use the contact information I provided to communicate with me about this claim by phone, email, or mail. I understand my information will be used solely to process, verify, and fulfill my claim in accordance with applicable privacy laws and the Right to Financial Privacy Act where applicable.</p>
+                                    </div>
+                                </label>
+
+                                <!-- Agreement 7 -->
+                                <label class="glass-card p-4 rounded-xl border border-purple-800/40 flex items-start gap-3 cursor-pointer hover:border-brand-cyan/40 transition-colors">
+                                    <input type="checkbox" required class="term-checkbox accent-brand-cyan w-5 h-5 mt-0.5 shrink-0">
+                                    <div class="text-xs leading-relaxed">
+                                        <span class="font-bold text-white block mb-1">7. Binding Arbitration & Jury Trial Waiver</span>
+                                        <p class="text-slate-300">I agree that any dispute, claim, or controversy arising out of or relating to this award, this claim form, or the claims process shall be resolved exclusively through final and binding arbitration administered by the American Arbitration Association under its applicable rules, rather than in court. I waive any right to a jury trial or to participate in a class action related to this claim.</p>
+                                    </div>
+                                </label>
+
+                            </div>
+
+                            <div class="text-center text-xs text-slate-400 py-2">
+                                By clicking <strong>Submit Claim</strong>, you confirm that you have read, understand, and agree to all of the terms above.
+                            </div>
+
+                        </div>
+
+                        <!-- NAVIGATION BUTTON BAR -->
+                        <div class="mt-10 pt-6 border-t border-purple-900/40 flex items-center justify-between">
+                            <button type="button" id="prev-btn" onclick="navigateStep(-1)" class="btn-outline-cyan px-6 py-3 rounded-xl text-xs font-bold flex items-center gap-2 opacity-50 cursor-not-allowed" disabled>
+                                <i class="fa-solid fa-arrow-left"></i>
+                                <span>Previous</span>
+                            </button>
+
+                            <button type="button" id="next-btn" onclick="navigateStep(1)" class="btn-cyan px-8 py-3.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2">
+                                <span>Next Step</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+
+                            <button type="submit" id="submit-btn" class="btn-cyan px-10 py-3.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 hidden">
+                                <i class="fa-solid fa-paper-plane"></i>
+                                <span id="submit-btn-text">Submit Claim</span>
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Compliance & Legal Information Summary Section -->
+        <section id="compliance-info" class="py-16 bg-[#080512] border-t border-purple-900/30">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6">
+                <div class="text-center mb-10">
+                    <h3 class="font-heading font-bold text-2xl text-white">Statutory & Regulatory Obligations</h3>
+                    <p class="text-slate-400 text-xs sm:text-sm mt-1">Summary of winner requirements during the escrow audit period.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-300">
+                    <div class="glass-card p-6 rounded-2xl border border-purple-900/30">
+                        <h4 class="font-bold text-amber-400 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-triangle-exclamation"></i> Summary of Obligations
+                        </h4>
+                        <ul class="space-y-2 list-disc list-inside text-slate-400">
+                            <li>You must be an eligible winner with a valid Claim ID from an official notification.</li>
+                            <li>All information provided must be complete, current, and truthful.</li>
+                            <li>You will cooperate with ARB Interactive and assigned claims reps through verification.</li>
+                            <li>You will keep award details confidential until formal delivery completion.</li>
+                        </ul>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl border border-purple-900/30">
+                        <h4 class="font-bold text-brand-cyan mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-gavel"></i> Arbitration & Tax Compliance
+                        </h4>
+                        <ul class="space-y-2 list-disc list-inside text-slate-400">
+                            <li>Tax documentation (IRS Form W-9 or equivalent) required prior to wire release.</li>
+                            <li>Disputes are settled exclusively via American Arbitration Association rules.</li>
+                            <li>Right to Financial Privacy Act standards enforced across all transactions.</li>
+                            <li>White-glove courier dispatch scheduled within 48 hours of audit completion.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#05030b] border-t border-purple-950 py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:flex sm:items-center sm:justify-between text-xs text-slate-500">
+            <div>
+                <p>&copy; 2026 ARB Interactive Claim Registry (arb-interactive.com). All Rights Reserved.</p>
+                <p class="mt-1 text-[11px] text-slate-600">Official Sweepstakes & Lottery Award Fulfillment Portal.</p>
+            </div>
+            <div class="mt-4 sm:mt-0 flex justify-center gap-6 text-slate-400">
+                <a href="#compliance-info" class="hover:text-brand-cyan">Privacy Policy</a>
+                <a href="#compliance-info" class="hover:text-brand-cyan">Terms of Arbitration</a>
+                <a href="#compliance-info" class="hover:text-brand-cyan">W-9 Tax Compliance</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Digital Claim Receipt Modal (Shown upon submission) -->
+    <div id="receipt-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-xl flex items-center justify-center p-4 hidden">
+        <div class="glass-card max-w-xl w-full rounded-3xl p-6 sm:p-8 border border-brand-cyan/40 relative shadow-2xl animate-fade-in max-h-[90vh] overflow-y-auto">
+            
+            <button onclick="closeReceiptModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center">
+                <div class="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-400/40 text-emerald-400 flex items-center justify-center mx-auto text-3xl mb-4">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <span class="gold-badge text-[10px] uppercase font-bold px-3 py-1 rounded-full">Official Digital Receipt</span>
+                <h3 class="font-heading font-extrabold text-2xl text-white mt-2">Claim Successfully Submitted</h3>
+                <p class="text-xs text-slate-300 mt-1">Your claim parameters have been locked and submitted to the ARB Interactive audit desk.</p>
+            </div>
+
+            <!-- Receipt Metadata Box -->
+            <div class="mt-6 glass-card p-5 rounded-2xl border border-purple-800/40 bg-black/40 space-y-3 font-mono text-xs">
+                <div class="flex justify-between border-b border-purple-900/40 pb-2">
+                    <span class="text-slate-400">Receipt Reference:</span>
+                    <span id="receipt-ref" class="text-brand-cyan font-bold">ARB-REC-994812</span>
+                </div>
+                <div class="flex justify-between border-b border-purple-900/40 pb-2">
+                    <span class="text-slate-400">Timestamp:</span>
+                    <span id="receipt-time" class="text-slate-200">Nov 13, 2026 - 14:30 UTC</span>
+                </div>
+                <div class="flex justify-between border-b border-purple-900/40 pb-2">
+                    <span class="text-slate-400">Claimant Name:</span>
+                    <span id="receipt-name" class="text-white font-bold">Derrick stepn</span>
+                </div>
+                <div class="flex justify-between border-b border-purple-900/40 pb-2">
+                    <span class="text-slate-400">Claim ID Number:</span>
+                    <span id="receipt-claim-id" class="text-amber-400 font-bold">Arb248489</span>
+                </div>
+                <div class="flex justify-between border-b border-purple-900/40 pb-2">
+                    <span class="text-slate-400">Award Amount:</span>
+                    <span id="receipt-amount" class="text-emerald-400 font-bold">$2,090,029.00 USD</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-400">Assigned Representative:</span>
+                    <span id="receipt-rep" class="text-purple-300 font-bold">Chuxs Loxkswl</span>
+                </div>
+            </div>
+
+            <div class="mt-4 p-3 bg-amber-950/30 border border-amber-400/30 rounded-xl text-[11px] text-amber-300 flex items-start gap-2">
+                <i class="fa-solid fa-lock text-sm mt-0.5 shrink-0"></i>
+                <span><strong>Confidentiality Warning:</strong> Per your signed terms, keep this receipt code and award details confidential to prevent claim disqualification.</span>
+            </div>
+
+            <div class="mt-6 flex flex-col sm:flex-row gap-3">
+                <button onclick="copyReceiptText()" class="btn-cyan flex-1 py-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-copy"></i> Copy Official Receipt
+                </button>
+                <button onclick="window.print()" class="btn-outline-cyan flex-1 py-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-print"></i> Print Document
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Live Representative & Compliance Chat Drawer -->
+    <div id="chat-container" class="fixed bottom-5 right-5 z-40">
+        <!-- Chat Drawer Button -->
+        <button onclick="toggleChatDrawer()" id="chat-toggle-btn" class="w-14 h-14 rounded-full bg-brand-cyan text-black shadow-2xl flex items-center justify-center text-xl hover:scale-105 transition-transform pulse-subtle">
+            <i class="fa-solid fa-comments"></i>
+        </button>
+
+        <!-- Chat Drawer Window -->
+        <div id="chat-window" class="glass-card w-80 sm:w-96 rounded-3xl border border-cyan-400/40 shadow-2xl fixed bottom-24 right-5 hidden flex-col overflow-hidden max-h-[500px]">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-purple-950 to-cyan-950 p-4 border-b border-purple-800/40 flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-brand-cyan text-black font-bold flex items-center justify-center text-xs">
+                        ARB
+                    </div>
+                    <div>
+                        <div class="text-xs font-bold text-white">Claims Compliance Desk</div>
+                        <div class="text-[10px] text-emerald-400 flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Live Assistance
+                        </div>
+                    </div>
+                </div>
+                <button onclick="toggleChatDrawer()" class="text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Message Area -->
+            <div id="chat-messages" class="p-4 flex-grow overflow-y-auto space-y-3 text-xs">
+                <div class="bg-purple-950/60 p-3 rounded-2xl border border-purple-800/30 text-slate-200">
+                    Hello! Welcome to the official <strong>ARB Interactive</strong> support desk. How can we assist with your winner claim today?
+                </div>
+            </div>
+
+            <!-- Quick Questions -->
+            <div class="p-2 bg-black/40 border-t border-purple-900/30 flex gap-2 overflow-x-auto text-[10px]">
+                <button onclick="sendQuickMessage('How do I find my Claim ID?')" class="bg-purple-900/40 px-2.5 py-1 rounded-full text-slate-300 hover:text-white shrink-0">Claim ID Help</button>
+                <button onclick="sendQuickMessage('Why is confidentiality required?')" class="bg-purple-900/40 px-2.5 py-1 rounded-full text-slate-300 hover:text-white shrink-0">Confidentiality Rule</button>
+            </div>
+
+            <!-- Chat Input -->
+            <form onsubmit="handleChatMessage(event)" class="p-3 bg-black/60 border-t border-purple-900/40 flex gap-2">
+                <input type="text" id="chat-input" placeholder="Type a message..." class="flex-grow glass-input rounded-xl px-3 py-2 text-xs text-white">
+                <button type="submit" class="btn-cyan px-3 py-2 rounded-xl text-xs font-bold">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // State Variables
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        // Step titles and percentages
+        const stepMeta = {
+            1: { title: "Step 1 of 4: Personal & Contact Information", percent: "25% Completed", width: "25%" },
+            2: { title: "Step 2 of 4: Claim ID Verification", percent: "50% Completed", width: "50%" },
+            3: { title: "Step 3 of 4: Award Details", percent: "75% Completed", width: "75%" },
+            4: { title: "Step 4 of 4: Representative & Compliance Terms", percent: "100% Ready", width: "100%" }
+        };
+
+        // Navigation Handler
+        function goToStep(step) {
+            if (step < 1 || step > totalSteps) return;
+            
+            // Validate previous steps before jumping forward
+            if (step > currentStep && !validateCurrentStep()) return;
+
+            currentStep = step;
+            updateStepDisplay();
+        }
+
+        function navigateStep(direction) {
+            const targetStep = currentStep + direction;
+            if (direction > 0 && !validateCurrentStep()) return;
+            
+            if (targetStep >= 1 && targetStep <= totalSteps) {
+                currentStep = targetStep;
+                updateStepDisplay();
+            }
+        }
+
+        function updateStepDisplay() {
+            // Update step panes
+            for (let i = 1; i <= totalSteps; i++) {
+                const pane = document.getElementById(`step-${i}-content`);
+                const dot = document.getElementById(`dot-${i}`);
+                
+                if (i === currentStep) {
+                    pane.classList.remove('hidden');
+                    dot.className = "step-dot py-1.5 rounded-lg text-xs font-bold bg-brand-cyan text-black shadow-lg shadow-cyan-500/20";
+                } else if (i < currentStep) {
+                    pane.classList.add('hidden');
+                    dot.className = "step-dot py-1.5 rounded-lg text-xs font-bold bg-emerald-950 text-emerald-400 border border-emerald-500/40";
+                } else {
+                    pane.classList.add('hidden');
+                    dot.className = "step-dot py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-400";
+                }
+            }
+
+            // Update Header progress
+            const meta = stepMeta[currentStep];
+            document.getElementById('step-title-text').innerText = meta.title;
+            document.getElementById('step-percent-text').innerText = meta.percent;
+            document.getElementById('progress-bar-fill').style.width = meta.width;
+
+            // Update Button visibility
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+
+            if (currentStep === 1) {
+                prevBtn.disabled = true;
+                prevBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                prevBtn.disabled = false;
+                prevBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+
+            if (currentStep === totalSteps) {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.remove('hidden');
+                updateSummaryReview();
+            } else {
+                nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+            }
+        }
+
+        // Current Step Input Validation
+        function validateCurrentStep() {
+            if (currentStep === 1) {
+                const fields = ['fullName', 'driverLicense', 'phoneNumber', 'emailAddress', 'streetAddress', 'city', 'state', 'zipCode'];
+                for (let id of fields) {
+                    const el = document.getElementById(id);
+                    if (!el.value.trim()) {
+                        showToast(`Please complete the field: ${el.previousElementSibling?.innerText || id}`, 'error');
+                        el.focus();
+                        return false;
+                    }
+                }
+            } else if (currentStep === 2) {
+                const claimId = document.getElementById('claimId').value.trim();
+                if (!claimId) {
+                    showToast('Please enter your official Claim ID.', 'error');
+                    return false;
+                }
+            } else if (currentStep === 3) {
+                const prizeAmount = document.getElementById('prizeAmount').value.trim();
+                if (!prizeAmount) {
+                    showToast('Please enter the Prize Amount.', 'error');
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // Live Validation for Claim ID Format
+        function validateClaimIdFormat() {
+            const input = document.getElementById('claimId');
+            const statusText = document.getElementById('claim-status-text');
+            const feedback = document.getElementById('claim-id-feedback');
+            const val = input.value.trim();
+
+            if (val.length >= 6) {
+                statusText.innerText = "Registry Matched";
+                statusText.className = "text-xs font-bold text-emerald-400";
+                feedback.classList.remove('hidden');
+            } else {
+                statusText.innerText = "Format Check Required";
+                statusText.className = "text-xs font-bold text-slate-500";
+                feedback.classList.add('hidden');
+            }
+        }
+
+        // Representative Fields Toggle
+        function toggleRepFields(show) {
+            const container = document.getElementById('rep-name-container');
+            if (show) {
+                container.classList.remove('hidden');
+            } else {
+                container.classList.add('hidden');
+            }
+            updateSummaryReview();
+        }
+
+        // Master "Accept All Agreements" button
+        function acceptAllAgreements() {
+            const checkboxes = document.querySelectorAll('.term-checkbox');
+            checkboxes.forEach(cb => cb.checked = true);
+            showToast('All 7 legal & compliance agreements accepted.', 'success');
+        }
+
+        // Update Live Claim Summary Box in Step 4
+        function updateSummaryReview() {
+            const name = document.getElementById('fullName').value || "Not Specified";
+            const claimId = document.getElementById('claimId').value || "Not Verified";
+            const amount = document.getElementById('prizeAmount').value || "0.00";
+            const email = document.getElementById('emailAddress').value || "";
+            const phone = document.getElementById('phoneNumber').value || "";
+
+            const hasRep = document.querySelector('input[name="hasRep"]:checked')?.value === 'yes';
+            const repFirst = document.getElementById('repFirstName').value || "";
+            const repLast = document.getElementById('repLastName').value || "";
+            const repText = hasRep ? `${repFirst} ${repLast}`.trim() || "Assigned" : "None";
+
+            document.getElementById('summary-name').innerText = name;
+            document.getElementById('summary-id').innerText = claimId;
+            document.getElementById('summary-amount').innerText = `$${Number(amount.replace(/[^0-9.]/g, '')).toLocaleString()} USD`;
+            document.getElementById('summary-rep').innerText = repText;
+            document.getElementById('summary-contact').innerText = `${email} | ${phone}`;
+        }
+
+        // Auto fill helper for quick evaluation/testing
+        function autoFillSampleData() {
+            document.getElementById('fullName').value = "Derrick stepn";
+            document.getElementById('driverLicense').value = "59969200";
+            document.getElementById('phoneNumber').value = "(161) 616-9469";
+            document.getElementById('emailAddress').value = "gohsjsjnenn@gmail.com";
+            document.getElementById('streetAddress').value = "4 bueikeklsms s trett";
+            document.getElementById('city').value = "New York";
+            document.getElementById('state').value = "Logokkk";
+            document.getElementById('zipCode').value = "10001";
+            
+            document.getElementById('claimId').value = "Arb248489";
+            validateClaimIdFormat();
+            
+            document.getElementById('prizeAmount').value = "2090029";
+            document.getElementById('additionalDetails').value = "Official Winner Notification Match - Priority Handling";
+            
+            document.getElementById('repFirstName').value = "Chuxs";
+            document.getElementById('repLastName').value = "Loxkswl";
+            
+            showToast('Sample winner data populated!', 'info');
+        }
+
+        // Claim Form Submit Handler
+        function handleClaimSubmission(event) {
+            event.preventDefault();
+
+            // Verify step 4 checkboxes
+            const unchecked = document.querySelectorAll('.term-checkbox:not(:checked)');
+            if (unchecked.length > 0) {
+                showToast(`You must accept all required compliance agreements before submitting.`, 'error');
+                return;
+            }
+
+            const submitBtn = document.getElementById('submit-btn');
+            const btnText = document.getElementById('submit-btn-text');
+
+            submitBtn.disabled = true;
+            btnText.innerText = "Submitting Audit Request...";
+
+            // Simulate server network verification delay
+            setTimeout(() => {
+                submitBtn.disabled = false;
+                btnText.innerText = "Submit Claim";
+                
+                // Populate Modal Receipt
+                const name = document.getElementById('fullName').value;
+                const claimId = document.getElementById('claimId').value;
+                const rawAmount = document.getElementById('prizeAmount').value;
+                const formattedAmount = `$${Number(rawAmount.replace(/[^0-9.]/g, '')).toLocaleString()} USD`;
+                const repFirst = document.getElementById('repFirstName').value;
+                const repLast = document.getElementById('repLastName').value;
+
+                document.getElementById('receipt-ref').innerText = `ARB-REC-${Math.floor(100000 + Math.random() * 900000)}`;
+                document.getElementById('receipt-time').innerText = new Date().toLocaleString();
+                document.getElementById('receipt-name').innerText = name;
+                document.getElementById('receipt-claim-id').innerText = claimId;
+                document.getElementById('receipt-amount').innerText = formattedAmount;
+                document.getElementById('receipt-rep').innerText = `${repFirst} ${repLast}`.trim() || "Assigned ARB Officer";
+
+                // Open Modal
+                document.getElementById('receipt-modal').classList.remove('hidden');
+            }, 1800);
+        }
+
+        function closeReceiptModal() {
+            document.getElementById('receipt-modal').classList.add('hidden');
+        }
+
+        function copyReceiptText() {
+            const ref = document.getElementById('receipt-ref').innerText;
+            const textToCopy = `ARB Interactive Digital Receipt:\nReference: ${ref}\nClaimant: ${document.getElementById('receipt-name').innerText}\nClaim ID: ${document.getElementById('receipt-claim-id').innerText}\nStatus: Audited & Escrowed`;
+
+            // Fallback for execution environment
+            const dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = textToCopy;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+
+            showToast('Receipt details copied to clipboard!', 'success');
+        }
+
+        // Toast Notification System
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            let bgClass = "bg-slate-900 border-purple-800 text-white";
+            let icon = "fa-circle-info text-cyan-400";
+            if (type === 'success') {
+                bgClass = "bg-slate-900 border-emerald-500 text-white";
+                icon = "fa-circle-check text-emerald-400";
+            } else if (type === 'error') {
+                bgClass = "bg-slate-900 border-red-500 text-white";
+                icon = "fa-triangle-exclamation text-red-400";
+            }
+
+            toast.className = `glass-card p-4 rounded-xl border ${bgClass} shadow-xl text-xs flex items-center gap-3 pointer-events-auto transition-all duration-300 transform translate-x-5 opacity-0`;
+            toast.innerHTML = `<i class="fa-solid ${icon} text-base"></i> <span>${message}</span>`;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.remove('translate-x-5', 'opacity-0');
+            }, 50);
+
+            setTimeout(() => {
+                toast.classList.add('translate-x-5', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+
+        // Live Chat Assistant Logic
+        function toggleChatDrawer() {
+            const chatWindow = document.getElementById('chat-window');
+            chatWindow.classList.toggle('hidden');
+            chatWindow.classList.toggle('flex');
+        }
+
+        function sendQuickMessage(msg) {
+            document.getElementById('chat-input').value = msg;
+            handleChatMessage(new Event('submit'));
+        }
+
+        function handleChatMessage(e) {
+            e.preventDefault();
+            const input = document.getElementById('chat-input');
+            const msg = input.value.trim();
+            if (!msg) return;
+
+            const chatMessages = document.getElementById('chat-messages');
+            
+            // Add User Message
+            const userBubble = document.createElement('div');
+            userBubble.className = "bg-cyan-950/80 border border-cyan-500/30 p-3 rounded-2xl text-slate-100 ml-6 text-right";
+            userBubble.innerText = msg;
+            chatMessages.appendChild(userBubble);
+
+            input.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Generate Automated Assistant Response
+            setTimeout(() => {
+                const botBubble = document.createElement('div');
+                botBubble.className = "bg-purple-950/60 border border-purple-800/30 p-3 rounded-2xl text-slate-200 mr-6";
+                
+                if (msg.toLowerCase().includes('claim id')) {
+                    botBubble.innerHTML = "Your Claim ID can be found at the top right corner of your winner letter or email (e.g. <strong>ARB-248489</strong>).";
+                } else if (msg.toLowerCase().includes('confidential')) {
+                    botBubble.innerHTML = "Confidentiality guarantees that prize funds remain secure during escrow and prevents unauthorized identity theft attempts prior to transfer.";
+                } else {
+                    botBubble.innerHTML = "Thank you. An ARB Interactive compliance officer will review your query once your 4-step claim form has been submitted.";
+                }
+
+                chatMessages.appendChild(botBubble);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 800);
+        }
+
+        // Initialize state on load
+        window.onload = function() {
+            updateStepDisplay();
+        };
+    </script>
+</body>
+</html>
